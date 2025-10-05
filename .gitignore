@@ -1,0 +1,9 @@
+# Node modules (dependencies)
+node_modules/
+
+# Environment variables file (API keys, secrets)
+.env
+
+# OS files
+.DS_Store
+
