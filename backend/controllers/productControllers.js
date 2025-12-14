@@ -11,8 +11,7 @@ export const handleCreateProduct = async(req,res) => {
         description,
         stock_quantity
        }) 
-       return res.status(201).json({success: true, message: 'Product Added in a WareHouse Successfully'})
-
+       return res.status(201).json({success: true, message: 'Product Added in a WareHouse Successfully', product})
     } catch (error) {
         console.log("Error" ,error)
         return res.status(500).json({success: false, message: "Internal Server Error"})
@@ -76,15 +75,15 @@ export const handleIncreaseStockQunatity = async(req,res) => {
         if(!product){
           return res.status(404).json({success: false, message: "Product Not Found"})        
         }
-       const {amount} = req.body
-       if(amount === undefined || amount === null){
+       const {stock_quantity} = req.body
+       if(stock_quantity === undefined || stock_quantity === null){
          return res.status(400).json({success: false, message: "quantity can't be Empty"})   
        }
-       if(typeof amount !== 'number' || amount <= 0){
-        return res.status(400).json({success: false, message: "quantity Must be More than previous value"})  
+       if(typeof stock_quantity !== 'number' || stock_quantity <= 0){
+        return res.status(400).json({success: false, message: "quantity Must be More than 0"})  
        }
        const updatedProduct = await productModel.findByIdAndUpdate(productId, {
-        $inc : { stock_quantity : amount}} , {new: true})
+        $inc : { stock_quantity : stock_quantity}} , {new: true})
        if(!updatedProduct){
           return res.status(400).json({success: false, message: "Product Not Found", data: updatedProduct})    
        }
@@ -102,18 +101,18 @@ export const handleDecreaseStockQunatity = async(req,res) => {
         if(!product){
           return res.status(404).json({success: false, message: "Product Not Found"})        
         }
-       const {amount} = req.body
-       if(amount === undefined || amount === num){
+       const {stock_quantity} = req.body
+       if(stock_quantity === undefined || stock_quantity === null){
          return res.status(400).json({success: false, message: "quantity can't be Empty"})   
        }
-       if(typeof amount !== 'number' || amount <= 0){
+       if(typeof stock_quantity !== 'number' || stock_quantity <= 0){
         return res.status(400).json({success: false, message: "quantity Must be More than 0"})  
        }
-        if(product.stock_quantity < amount){
-         return res.status(400).json({success: false, message: "Stock Quantity is not Sufficient to Decrease by that amount"})   
+        if(product.stock_quantity < stock_quantity){
+         return res.status(400).json({success: false, message: "Stock Quantity is not Sufficient to Decrease by that stock_quantity"})   
         }
        const updatedProduct = await productModel.findByIdAndUpdate(productId, {
-        $inc : { stock_quantity : -amount}} , {new: true})
+        $inc : { stock_quantity : -stock_quantity}} , {new: true})
        if(!updatedProduct){
           return res.status(400).json({success: false, message: "Product Not Found", data: updatedProduct})    
        }
@@ -123,3 +122,5 @@ export const handleDecreaseStockQunatity = async(req,res) => {
        return res.status(500).json({success: false, message: "Internal Server Error"})    
     }
 }
+
+
