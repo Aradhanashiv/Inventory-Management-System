@@ -60,10 +60,10 @@ const SignUp = () => {
         
         {err && <p className='text-red-500 font-bold text-center'>*{err}</p> }
 
-        <div className="">
+        {/* <div className="">
          <button type="submit" className="w-full border mb-4 rounded-2xl 
         font-semibold px-3 py-2 transition duration-200 cursor-pointer hover:bg-blue-100 hover:text-black">SignUp Via Google</button>
-        </div>
+        </div> */}
 
         <p className="text-center">Already Have an Account? <span className="text-blue-700 font-bold hover:text-gray-500">SignIn</span></p>
        </div>
