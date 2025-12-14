@@ -3,9 +3,10 @@ import { useState } from "react"
 import { serverUrl } from "../App"
 import { setUserData } from "../redux/userSlice"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 const SignIn = () => {
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [err, setErr] = useState("")
@@ -56,7 +57,8 @@ const SignIn = () => {
         font-semibold px-3 py-2 transition duration-200 cursor-pointer hover:bg-blue-100 hover:text-black">SignIn Via Google</button>
         </div> */}
 
-        <p className="text-center">Don't Have an Account? <span className="text-blue-700 font-bold hover:text-gray-500">SignUp</span></p>
+        <p className="text-center">Don't Have an Account? <span className="text-blue-700 font-bold hover:text-gray-500" 
+        onClick={()=>navigate('/signup')}>SignUp</span></p>
        </div>
        </div>
     )
